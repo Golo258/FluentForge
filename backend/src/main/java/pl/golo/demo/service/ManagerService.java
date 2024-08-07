@@ -1,10 +1,7 @@
 package pl.golo.demo.service;
-import pl.golo.demo.model.Old.Employee;
-import pl.golo.demo.model.Old.Project;
-import pl.golo.demo.model.Old.ProjectAssignment;
-import pl.golo.demo.model.Old.Task;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ManagerService {
     public static void main(String[] args) {

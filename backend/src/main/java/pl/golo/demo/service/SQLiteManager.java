@@ -2,7 +2,6 @@ package pl.golo.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import pl.golo.demo.model.Old.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -194,12 +193,12 @@ public class SQLiteManager {
 
     public Object getClassByTableName(String tableName) {
         Object searchedObject = null;
-        switch (tableName){
-            case "employees" -> {searchedObject = new Employee();}
-            case "projects" -> {searchedObject = new Project();}
-            case "tasks" -> {searchedObject =  new Task();}
-            case "ProjectAssignments" -> {searchedObject =  new ProjectAssignment();}
-        };
+//        switch (tableName){
+//            case "employees" -> {searchedObject = new Employee();}
+//            case "projects" -> {searchedObject = new Project();}
+//            case "tasks" -> {searchedObject =  new Task();}
+//            case "ProjectAssignments" -> {searchedObject =  new ProjectAssignment();}
+//        };
         return searchedObject;
     }
 }

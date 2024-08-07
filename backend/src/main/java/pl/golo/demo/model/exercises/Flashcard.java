@@ -10,16 +10,12 @@ import java.util.List;
  *  a) with 4 possible responses (ABCD)
  *  b) with 2 possibilites (good, wrong)
  *  c) with only one with blank field needed to complete
- *
- * @param flashcardId   Unique identifier of flashcard
  */
 public class Flashcard extends Exercise{
 
-    private Long flashcardId;
 
-    public Flashcard(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination, Long flashcardId) {
+    public Flashcard(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination) {
         super(exerciseId, title, questions, apprenticeId, pagination);
-        this.flashcardId = flashcardId;
     }
 
     @Override

@@ -12,19 +12,15 @@ import java.util.List;
  *  b) with 2 possibilites (True, False)
  *  c) with only one with blank field needed to complete
  *  d) writing text to open question
- *
- * @param testId   Unique identifier of flashcard
  */
 
 @Getter
 @Setter
 public class KnowledgeTest extends Exercise{
 
-    private Long testId;
 
-    public KnowledgeTest(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination, Long testId) {
+    public KnowledgeTest(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination) {
         super(exerciseId, title, questions, apprenticeId, pagination);
-        this.testId = testId;
     }
 
     @Override
