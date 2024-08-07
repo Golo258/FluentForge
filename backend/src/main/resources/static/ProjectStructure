@@ -1,0 +1,73 @@
+Koncepcja Aplikacji:
+    Aplikacja do Symulacji Nauki Języków
+    Opis:
+        Aplikacja umożliwiająca userom nauke jezyków (na razie opcje potem programistyczne)
+        Poprzez: interaktywne ćwiczenia, quizy, gry, testy
+        Java: Backend
+        React: backend.
+        Python: Analiza postępów i generowania ćwiczeń
+        C++: optymalizacja
+
+    Funkcje:
+         Ćwiczenia i quizy:
+         Interaktywne zadania i testy do nauki słownictwa i gramatyki.
+    Śledzenie postępów:
+        Monitorowanie postępów i dostosowywanie poziomu trudności.
+    Interfejs:
+        Intuicyjny interfejs w React do nauki języka.
+
+
+Każdy użytkownik posiada możliwość wyboru aktywności:
+    Aktywnośc to exercise:
+        Jest kilka typów aktywności:
+            Question: pytanie:str, możliwe_odpowiedzi: List<str>, wybrana_odpowiedz:str
+            Quiz:
+                Zawiera, tytuł, zasady, Lista (Question), User wykonujący qui
+                User wypełnia luki swoich odpowiedzi i wysyła skonczony quiz, który jest werfikowany+ii
+            Flashcards:
+                List<Questions> + inna mechanika operacji na tej liscie
+                User na ekranie ma jedną fiszke (wersja tekstowa(odwracajace sie karteczki)):
+                    Mechanika, user przechodzi przez wiele fiszek (np 5, sam sobie moze to ustawić)
+                    Po czym ma pytanie i odpowiedz, ( jezyk : jezyk ( musi wpisać, albo wybrać z abcd ))
+
+            Test:
+                Zawiera, tytuł, Lista (question), User wykonuje to:
+                User ma na ekranie liste pytań, paggination na przykłąd na 10 pytań ( lub jak sobie ustali)
+                User odowiada na różne pytania, abcd, i otwarte
+                Pod koniec wysyłamy odpowiedzi i analizujemy je
+    
+
+#------------------------------------------
+Etapy projektowania:
+    Cele aplikacji i funkcje, które ma oferować
+        Cel 1: Umożliwienie użytkownikowi skutecznej nauki języków obcych (next programistycznych)
+        Cel 2: Oferowanie darmowej nauki w interesujący sposób
+        Cel 3: Ofertowanie użytkownikowi możliwości wyboru przedmiotów nauki:
+            Fiszki | Powtórki | Quizy | Testy | Pisanie | Czytanie itd
+
+
+    Identyfikacja grupy docelowej i ich potrzeby:
+        Grupowa docelowa:
+            osoby w dowolnym wieku (ale głównie osoby młode wiek około 15 - 30) ważna cheć do nauki
+        Potrzeby grupy docelowej:
+            łatwa w obsłudzę aplikacja, z wieloma funkcjonalności, róznorodność (brak monotononności)
+            możliwość wersji na komputer, smartfon (in the future move to android )
+
+Katalogi:
+    FluentForge/
+    ├── backend/
+        Obsługiwanie endpointów:
+            Operacje i metody:
+                SELECT
+                UPDATE
+                INSERT
+                DELETE
+
+                COUNTING BY fields
+                GROUPING BY fields
+            Models:
+
+    ├── frontend/
+    ├── data-analysis/
+    ├── documentation/
+    └── README.md
