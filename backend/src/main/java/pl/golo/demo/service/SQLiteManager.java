@@ -2,7 +2,8 @@ package pl.golo.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import pl.golo.demo.model.*;
+import pl.golo.demo.model.Old.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -151,7 +152,7 @@ public class SQLiteManager {
             assert inputStream != null;
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
-            JsonInsertedData [] dataArray = mapper.readValue(inputStream, JsonInsertedData[].class);
+            JsonInsertedData[] dataArray = mapper.readValue(inputStream, JsonInsertedData[].class);
             for(JsonInsertedData jsonData: dataArray){
                 if (jsonData.getTable().contains(modelName)){
                     Object wantedSQLModel = getClassByTableName(modelName);

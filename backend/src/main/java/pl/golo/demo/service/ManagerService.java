@@ -1,8 +1,8 @@
 package pl.golo.demo.service;
-import pl.golo.demo.model.Employee;
-import pl.golo.demo.model.Project;
-import pl.golo.demo.model.ProjectAssignment;
-import pl.golo.demo.model.Task;
+import pl.golo.demo.model.Old.Employee;
+import pl.golo.demo.model.Old.Project;
+import pl.golo.demo.model.Old.ProjectAssignment;
+import pl.golo.demo.model.Old.Task;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -12,10 +12,10 @@ public class ManagerService {
         SQLiteManager manager = new SQLiteManager("jdbc:sqlite:simple_database.db");
         LinkedHashMap<String,Object> modelsRepresentation = new LinkedHashMap<>()
         {{
-            put("employees", new Employee());
-            put("projects", new Project());
-            put("tasks", new Task());
-            put("ProjectAssignments", new ProjectAssignment());
+//            put("employees", new Employee());
+//            put("projects", new Project());
+//            put("tasks", new Task());
+//            put("ProjectAssignments", new ProjectAssignment());
         }};
 
 
