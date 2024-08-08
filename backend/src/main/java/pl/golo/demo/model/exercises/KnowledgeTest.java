@@ -19,8 +19,11 @@ import java.util.List;
 public class KnowledgeTest extends Exercise{
 
 
-    public KnowledgeTest(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination) {
-        super(exerciseId, title, questions, apprenticeId, pagination);
+    public KnowledgeTest() {
+    }
+
+    public KnowledgeTest(Long exerciseId, String title, Long apprenticeId, Integer[] pagination) {
+        super(exerciseId, title, apprenticeId, pagination);
     }
 
     @Override

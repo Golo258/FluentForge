@@ -23,7 +23,7 @@ public class Apprentice {
     private String username;
     private String password;
     private String email;
-    private List<Language> languages;
+//    private List<Language> languages;
 
     public Apprentice() {
     }

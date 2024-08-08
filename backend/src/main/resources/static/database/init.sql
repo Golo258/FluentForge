@@ -29,8 +29,10 @@ CREATE TABLE IF NOT EXISTS question
     questionId        BIGINT PRIMARY KEY,
     questionContent   VARCHAR(100) NOT NULL UNIQUE,
     possibleResponses TEXT[],
-    chosenResponse    VARCHAR(50)  NOT NULL
-    );
+    chosenResponse    VARCHAR(50)  NOT NULL,
+    exerciseId       BIGINT,
+    FOREIGN KEY (exerciseId) REFERENCES exercise(exerciseId) ON DELETE CASCADE
+);
 
 
 
@@ -38,9 +40,9 @@ CREATE TABLE IF NOT EXISTS exercise
 (
     exerciseId   BIGINT PRIMARY KEY,
     title        VARCHAR(100) NOT NULL UNIQUE,
-    pagination   INTEGER[],
+    pagination   INTEGER [],
     apprenticeId BIGINT       NOT NULL
-    );
+);
 
 CREATE TABLE IF NOT EXISTS quiz
 (

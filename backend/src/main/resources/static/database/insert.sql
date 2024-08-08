@@ -25,12 +25,12 @@ VALUES (1, 1),
        (5, 4),
        (5, 2);
 
-INSERT INTO question (questionId, questionContent, possibleResponses, chosenResponse)
-VALUES (1, 'What is the capital of France?', '{"Paris", "Berlin", "Madrid", "Rome"}', 'Paris'),
-       (2, 'What is 2 + 2?', '{"3", "4", "5", "6"}', '4'),
-       (3, 'Which planet is known as the Red Planet?', '{"Earth", "Mars", "Jupiter", "Saturn"}', 'Mars'),
-       (4, 'What is the largest ocean on Earth?', '{"Atlantic", "Indian", "Arctic", "Pacific"}', 'Pacific'),
-       (5, 'Who wrote "Hamlet"?', '{"Shakespeare", "Dickens", "Tolkien", "Austen"}', 'Shakespeare');
+INSERT INTO question (questionId, questionContent, possibleResponses, chosenResponse, exerciseId)
+VALUES (1, 'What is the capital of France?', '{"Paris", "Berlin", "Madrid", "Rome"}', 'Paris', 1),
+       (2, 'What is 2 + 2?', '{"3", "4", "5", "6"}', '4', 1),
+       (3, 'Which planet is known as the Red Planet?', '{"Earth", "Mars", "Jupiter", "Saturn"}', 'Mars', 2),
+       (4, 'What is the largest ocean on Earth?', '{"Atlantic", "Indian", "Arctic", "Pacific"}', 'Pacific', 2),
+       (5, 'Who wrote "Hamlet"?', '{"Shakespeare", "Dickens", "Tolkien", "Austen"}', 'Shakespeare', 3);
 
 INSERT INTO exercise (exerciseId, title, pagination, apprenticeId)
 VALUES (1, 'Quiz 1', '{1, 2, 3}', 1),

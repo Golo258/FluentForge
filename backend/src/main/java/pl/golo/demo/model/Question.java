@@ -15,14 +15,15 @@ public class Question {
     private String questionContent;
     private String[] possibleResponses;
     private String chosenResponse;
+    private Long exerciseId;
     public Question() {
     }
 
-
-    public Question(Long questionId, String questionContent,String[] possibleResponses, String chosenResponse) {
+    public Question(Long questionId, String questionContent, String[] possibleResponses, String chosenResponse, Long exerciseId) {
         this.questionId = questionId;
         this.questionContent = questionContent;
         this.possibleResponses = possibleResponses;
         this.chosenResponse = chosenResponse;
+        this.exerciseId = exerciseId;
     }
 }

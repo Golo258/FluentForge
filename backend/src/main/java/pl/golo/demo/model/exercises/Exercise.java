@@ -21,14 +21,15 @@ import java.util.List;
 public abstract class Exercise {
     private Long exerciseId;
     private String title;
-    private List<Question> questions;
     private Long apprenticeId; // foreign key one-to-many(one-user many exercises
     private Integer[] pagination;
 
-    public Exercise(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination) {
+    public Exercise() {
+    }
+
+    public Exercise(Long exerciseId, String title, Long apprenticeId, Integer[] pagination) {
         this.exerciseId = exerciseId;
         this.title = title;
-        this.questions = questions;
         this.apprenticeId = apprenticeId;
         this.pagination = pagination;
     }

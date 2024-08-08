@@ -21,8 +21,7 @@ public class Language {
     private Long languageId;
     private String name;
     private String additionalInformation;
-    private List<Apprentice> apprentices;
-//    relationships
+//    private List<Apprentice> apprentices;  relationships
 
 
     public Language() {

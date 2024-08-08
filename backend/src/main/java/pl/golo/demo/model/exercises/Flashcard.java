@@ -14,10 +14,12 @@ import java.util.List;
 public class Flashcard extends Exercise{
 
 
-    public Flashcard(Long exerciseId, String title, List<Question> questions, Long apprenticeId, Integer[] pagination) {
-        super(exerciseId, title, questions, apprenticeId, pagination);
+    public Flashcard(Long exerciseId, String title, Long apprenticeId, Integer[] pagination) {
+        super(exerciseId, title, apprenticeId, pagination);
     }
+    public Flashcard() {
 
+    }
     @Override
     public String getUserResponses() {
         return null;
