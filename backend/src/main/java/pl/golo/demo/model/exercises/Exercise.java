@@ -2,9 +2,7 @@ package pl.golo.demo.model.exercises;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.golo.demo.model.Question;
-
-import java.util.List;
+import pl.golo.demo.service.managment.QueriesUtils;
 
 /**
  * Abstract class which represent simple exercise which user has to complete
@@ -37,4 +35,10 @@ public abstract class Exercise {
     public abstract String getUserResponses();
 
     public abstract void loadAllResponses();
+
+    @Override
+    public String toString() {
+        QueriesUtils utils = new QueriesUtils();
+        return utils.receiveQueryString();
+    }
 }

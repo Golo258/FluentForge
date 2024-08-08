@@ -1,7 +1,8 @@
-package pl.golo.demo.model;
+package pl.golo.demo.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.golo.demo.service.managment.QueriesUtils;
 
 /**
  * Representation of connection class between Apprentice and LAnguage
@@ -15,4 +16,9 @@ import lombok.Setter;
 public class ApprenticeLanguage {
     private Long apprenticeId;
     private Long languageId;
+    @Override
+    public String toString() {
+        QueriesUtils utils = new QueriesUtils();
+        return utils.receiveQueryString();
+    }
 }

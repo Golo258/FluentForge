@@ -1,4 +1,4 @@
-package pl.golo.demo.model;
+package pl.golo.demo.model.exercises;
 
 import lombok.Getter;
 import lombok.Setter;

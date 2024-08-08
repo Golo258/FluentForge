@@ -49,3 +49,9 @@ INSERT INTO flashcard (exerciseId) VALUES
 
 INSERT INTO knowledge_test (exerciseId) VALUES
     (4);
+
+INSERT INTO apprentice( apprenticeId, username, password, email ) VALUES( 5, 'apprenticeOne', 'hashedpassword5', 'apprentice5@example.com' ),
+                                                                        ( 8, 'apprenticeTwo', 'hashedpassword8', 'apprentice8@example.com' );
+
+INSERT INTO language( languageId, name, additionalInformation ) VALUESLanguage ( Java, Object-oriented programming language.) ,
+    Language ( Python, High-level programming language for general-purpose programming.) ;

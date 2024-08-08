@@ -1,7 +1,8 @@
-package pl.golo.demo.model;
+package pl.golo.demo.model.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.golo.demo.service.managment.QueriesUtils;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class Language {
 
     @Override
     public String toString() {
-        return "Language ( " + this.getName() + ", " + this.getAdditionalInformation() + ") ";
+        QueriesUtils utils = new QueriesUtils();
+        return utils.receiveQueryString();
     }
 }

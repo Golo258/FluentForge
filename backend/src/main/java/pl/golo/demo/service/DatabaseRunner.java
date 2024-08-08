@@ -1,9 +1,9 @@
 package pl.golo.demo.service;
 
-import pl.golo.demo.model.Apprentice;
-import pl.golo.demo.model.ApprenticeLanguage;
-import pl.golo.demo.model.Language;
-import pl.golo.demo.model.Question;
+import pl.golo.demo.model.user.Apprentice;
+import pl.golo.demo.model.user.ApprenticeLanguage;
+import pl.golo.demo.model.user.Language;
+import pl.golo.demo.model.exercises.Question;
 import pl.golo.demo.model.exercises.Flashcard;
 import pl.golo.demo.model.exercises.KnowledgeTest;
 import pl.golo.demo.model.exercises.Quiz;
@@ -30,7 +30,7 @@ public class DatabaseRunner {
             put("knowledge_test", new KnowledgeTest());
         }};
         queryOperation = new ArrayList<>(
-                Arrays.asList("SELECT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
+                Arrays.asList("INSERT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
         );
     }
 

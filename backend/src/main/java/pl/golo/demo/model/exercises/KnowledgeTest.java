@@ -2,9 +2,7 @@ package pl.golo.demo.model.exercises;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.golo.demo.model.Question;
 
-import java.util.List;
 /**
  * KnowledgeTest class with original way of testing user knowledge (extends from Exercise class)
  * The given class will have many possible ways of responding to questions:

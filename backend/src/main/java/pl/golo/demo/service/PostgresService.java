@@ -65,17 +65,27 @@ public class PostgresService {
     }
 
     void executeSqlQuery(String modelName, ArrayList<String> operations, Object modelObject) throws SQLException {
-        for(String operation: operations){
-            switch(operation){
+        for (String operation : operations) {
+            switch (operation) {
                 case "SELECT" -> {
-                    SelectQueries selectQueries = new SelectQueries(getConnection(),getStatement());
+                    SelectQueries selectQueries = new SelectQueries(getConnection(), getStatement());
                     String query = selectQueries.getQueryByModelName(modelName);
                     selectQueries.fetchQuery(query, modelObject);
                 }
-                case "INSERT", "ALTER","UPDATE" ->{
-                    ModifyQueries insertQueries = new ModifyQueries();
+                case "INSERT", "ALTER", "UPDATE" -> {
+                    ModifyQueries modifyQueries = new ModifyQueries();
+                    try {
+                        String insertquery = modifyQueries.getFormatForInsertionQuery(operation, modelObject, modelName);
+                        System.out.println(insertquery);
+                        getStatement().executeUpdate(
+                                insertquery
+                        );
+                    } catch (Exception exception) {
+                        System.out.println(exception.getMessage());
+                    }
+
                 }
-                case "DELETE" , "DROP"  ->{
+                case "DELETE", "DROP" -> {
                     RemovalQueries removalQueries = new RemovalQueries();
                 }
                 default -> {
