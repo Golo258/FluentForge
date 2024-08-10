@@ -1,11 +1,13 @@
-<h1 style="text-align:center;"> FluentForge </h1>
-<h4>
-    <i style="text-align: center;">
+<h1 align="center">FluentForge</h1>
+<h4 align="center">
+    <i>
         A multi-tool project that implements a foreign language learning application using non-standard ways of learning in line with modern ways to learn and not forget.
     </i>
 </h4>
 
-<img src="logo.png" alt="Project Logo" height="450" style="position:relative; left:60px;"/>
+<p align="center">
+    <img src="logo.png" alt="Project Logo" width="50%" />
+</p>
 
 ## Table of Contents
 
@@ -29,17 +31,16 @@
   path.*
 
 1. **Key Features to be implemented :**
-
--[ ] **Interactive Exercises:**
-    - Create and complete quizzes, flashcards, and simulated conversations.
--[ ] **Progress Tracking:**
-    - Monitor your learning progress and receive personalized recommendations based on your results.
--[ ] **Personalized Tasks:**
-    - The app adjusts the difficulty level and types of exercises to match the user’s individual needs.
--[ ] **Multilingual Support:**
-    - Learn multiple languages in one place, with the option to add new languages.
--[ ] **Optimization:**
-    - With C++ implementation, the application remains fast and efficient, even with large amounts of data.
+- [ ] Interactive Exercises:
+    - [ ] Create and complete quizzes, flashcards, and simulated conversations.
+- [ ] Progress Tracking:
+    - [ ] Monitor your learning progress and receive personalized recommendations based on your results.
+- [ ] Personalized Tasks:
+    - [ ] The app adjusts the difficulty level and types of exercises to match the user’s individual needs.
+- [ ] Multilingual Support:
+    - [ ] Learn multiple languages in one place, with the option to add new languages.
+- [ ] Optimization:
+    - [ ] With C++ implementation, the application remains fast and efficient, even with large amounts of data.
 
 1. **Technologies Used:**
     * Java: Backend development, database management, and business logic.
@@ -52,27 +53,19 @@
 Listed implemented methods:
 
 Backend:
-
--[ ] Database Management
--[ ] Implement Controller Endpoints for Frontend usage
--[ ]
+- [x] Database Management
+- [ ] Implement Controller Endpoints for Frontend usage
 
 Frontend:
-
--[ ] Create base application structure
--[ ] Receive backend endpoints
--[ ]
+- [ ] Create base application structure
+- [ ] Receive backend endpoints
 
 Analisis:
-
--[ ] Get data from Frontend and analise it based on user application usage
--[ ] Collect received data in graphs and tables
--[ ]
+- [ ] Get data from Frontend and analise it based on user application usage
+- [ ] Collect received data in graphs and tables
 
 Optimalisation:
-
--[ ] Optimize memory usage while sending data to frontend
--[ ]
+- [ ] Optimize memory usage while sending data to frontend
 
 ## Requirements
 
