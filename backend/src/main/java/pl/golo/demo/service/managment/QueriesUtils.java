@@ -8,17 +8,33 @@ import pl.golo.demo.model.user.Apprentice;
 import pl.golo.demo.model.user.ApprenticeLanguage;
 import pl.golo.demo.model.user.Language;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class QueriesUtils {
     public QueriesUtils() {
     }
 
-    public LinkedHashMap<String, String> getQueryObjectFields(String givenQuery, Object queryModel) throws Exception {
+    /**
+     * Implementation of python function:
+     * String query = utils.getFormattedString("Some kind of {thing} just {have} another one {}", dict(key:value))
+     *
+     */
+    public String getFormatedString(String content, Map<String, String> valuesToFormat) {
+        List<String> splitContent = Arrays.asList(content.split(" "));
+        for (int value_index = 0; value_index < splitContent.size(); value_index++) {
+            String element = splitContent.get(value_index);
+            if(element.startsWith("{") && element.endsWith("}")){
+                String keyEquivalent = element.substring(1, element.length() - 1);
+                splitContent.set(value_index, valuesToFormat.get(keyEquivalent));
+            }
+        }
+        return String.join(" ",splitContent);
+    }
+
+    public LinkedHashMap<String, String> getQueryObjectFields(Object queryModel){
         Class<?> clazz = queryModel.getClass();
         Field[] fields;
         if (queryModel.getClass().getSuperclass() == Exercise.class) {
@@ -44,7 +60,8 @@ public class QueriesUtils {
             case "question" -> searchedObject = new Question();
             case "flashcard" -> searchedObject = new Flashcard();
             case "knowledge_test" -> searchedObject = new KnowledgeTest();
-        };
+        }
+        ;
         return searchedObject;
     }
 
@@ -54,18 +71,18 @@ public class QueriesUtils {
                 .map(Field::getName)
                 .collect(Collectors.joining(", "));
 
-        return "( " +  fieldsNames + " )";
+        return "( " + fieldsNames + " )";
     }
+
     public String receiveQueryString() {
         Field[] fields = this.getClass().getDeclaredFields();
 
         List<String> fieldValues = Arrays.stream(fields).map(field -> {
             try {
                 Object fieldValue = field.get(this);
-                if (fieldValue instanceof Number){
+                if (fieldValue instanceof Number) {
                     return fieldValue.toString();
-                }
-                else{
+                } else {
                     return "'" + fieldValue.toString() + "'"; //
                 }
             } catch (IllegalAccessException e) {

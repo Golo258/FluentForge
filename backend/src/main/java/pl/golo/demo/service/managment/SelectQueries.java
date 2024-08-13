@@ -1,18 +1,21 @@
 package pl.golo.demo.service.managment;
 
+import lombok.Getter;
+import lombok.Setter;
 import pl.golo.demo.model.exercises.Exercise;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
-public class SelectQueries {
+@Getter
+@Setter
+public class SelectQueries implements QueryExecutor{
 
     private Connection connection;
     private Statement statement;
+    private QueriesUtils utils;
+
     private static List<String> selectQueries;
     static {
         selectQueries =  Arrays.asList(
@@ -24,25 +27,30 @@ public class SelectQueries {
                 "SELECT * FROM exercise  WHERE title LIKE '%Flashcard%';",
                 "SELECT * FROM exercise  WHERE title LIKE '%Test%';");
     }
-    public SelectQueries() {
-    }
 
-    public SelectQueries(Connection connection, Statement statement) {
+    public SelectQueries(Connection connection, PreparedStatement statement, QueriesUtils utils) {
         this.connection = connection;
         this.statement = statement;
+        this.utils = utils;
     }
+
+    @Override
+    public void runQuery(String operation, String modelName, Object modelObject) {
+        String query = this.getQueryByModelName(modelName);
+        this.fetchQuery(query, modelObject);
+    };
+
     public String getQueryByModelName(String modelName){
         return selectQueries.stream().filter(
                 element -> element.toLowerCase().contains(modelName)
         ).findFirst().orElseThrow();
     }
 
-    public void fetchQuery(String query, Object queryModel) throws SQLException {
+    public void fetchQuery(String query, Object queryModel)  {
         if (this.connection != null) {
             try (var recordResult = this.statement.executeQuery(query)) {
                 while (recordResult.next()) {
-                    QueriesUtils utils = new QueriesUtils();
-                    var objectFields = utils.getQueryObjectFields(query, queryModel);
+                    var objectFields = this.getUtils().getQueryObjectFields(queryModel);
                     this.formFetchOutput(objectFields, recordResult);
                 }
             } catch (Exception e) {
