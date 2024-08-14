@@ -20,42 +20,44 @@ public class SelectQueries implements QueryExecutor {
     private Connection connection;
     private QueriesUtils utils;
 
-    public SelectQueries(Connection connection, PreparedStatement statement, QueriesUtils utils) {
+    public SelectQueries(Connection connection,  QueriesUtils utils) {
         this.connection = connection;
-        this.statement = statement;
         this.utils = utils;
     }
 
     @Override
     public void runQuery(String operation, String modelName, Object modelObject) {
-        List<String> selectQueryComposition = new ArrayList<>();
-        if (modelName.contains("exercise")) {
-            selectQueryComposition.add("SELECT * FROM exercise WHERE title LIKE ? ;");
-            List<Exercise> modelObjects = (List<Exercise>) modelObject;
-            for (Exercise childObject : modelObjects) {
-                if (selectQueryComposition.size() > 1) selectQueryComposition.remove(1);
-                if (childObject instanceof Quiz) {
-                    selectQueryComposition.add("%Quiz%");
-                } else if (childObject instanceof Flashcard) {
-                    selectQueryComposition.add("%Flashcard%");
-                } else {
-                    selectQueryComposition.add("%Test%");
+        if(operation.contains("SELECT")){
+            List<String> selectQueryComposition = new ArrayList<>();
+            if (modelName.contains("exercise")) {
+                selectQueryComposition.add("SELECT * FROM exercise WHERE title LIKE ? ;");
+                List<Exercise> modelObjects = (List<Exercise>) modelObject;
+                for (Exercise childObject : modelObjects) {
+                    selectQueryComposition.removeIf( element -> ( element.contains("%"))); // Previous element removal
+                    if (childObject instanceof Quiz) {
+                        selectQueryComposition.add("%Quiz%");
+                    } else if (childObject instanceof Flashcard) {
+                        selectQueryComposition.add("%Flashcard%");
+                    } else {
+                        selectQueryComposition.add("%Test%");
+                    }
+                    this.fetchQuery(selectQueryComposition, childObject);
                 }
-                this.fetchQuery(selectQueryComposition, childObject);
+            } else {
+                selectQueryComposition = List.of(
+                        "SELECT * FROM " + modelName + " ;"
+                );
+                this.fetchQuery(selectQueryComposition, modelObject);
             }
-        } else {
-            selectQueryComposition = Arrays.asList(
-                    "SELECT * FROM ? ;", modelName
-            );
-            this.fetchQuery(selectQueryComposition, modelObject);
         }
+
     }
 
 
     public void fetchQuery(List<String> queryComponents, Object modelObject) {
         try (PreparedStatement statement = this.getConnection().prepareStatement(queryComponents.get(0))) {
             this.setStatement(statement);
-            this.getStatement().setString(1, queryComponents.get(1));
+            if (queryComponents.size() > 1)  this.getStatement().setString(1, queryComponents.get(1));
             try (ResultSet resultSet = this.getStatement().executeQuery()) {
                 while (resultSet.next()) {
                     var objectFields = this.getUtils().getQueryObjectFields(modelObject);

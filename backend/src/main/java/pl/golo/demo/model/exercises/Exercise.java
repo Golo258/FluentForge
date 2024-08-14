@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.golo.demo.service.managment.QueriesUtils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Abstract class which represent simple exercise which user has to complete
  *
@@ -39,6 +42,6 @@ public abstract class Exercise {
     @Override
     public String toString() {
         QueriesUtils utils = new QueriesUtils();
-        return utils.receiveQueryString();
+        return  utils.receiveQueryString(  this);
     }
 }

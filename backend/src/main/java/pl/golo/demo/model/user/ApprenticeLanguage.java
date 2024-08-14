@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.golo.demo.service.managment.QueriesUtils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Representation of connection class between Apprentice and LAnguage
  *
@@ -19,6 +22,6 @@ public class ApprenticeLanguage {
     @Override
     public String toString() {
         QueriesUtils utils = new QueriesUtils();
-        return utils.receiveQueryString();
+        return  utils.receiveQueryString(  this);
     }
 }

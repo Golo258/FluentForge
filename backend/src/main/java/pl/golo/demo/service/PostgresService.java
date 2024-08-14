@@ -36,7 +36,6 @@ public class PostgresService {
 
 
     private Connection connection;
-    private PreparedStatement  statement;
     private QueriesUtils utils;
     private boolean isTestMode;
 
@@ -59,9 +58,7 @@ public class PostgresService {
     }
 
     public void disconnect() throws SQLException {
-        if (this.getStatement() != null) {
-            this.getStatement().close();
-        }
+
         if (this.getConnection() != null) {
             this.getConnection().close();
         }
@@ -73,17 +70,17 @@ public class PostgresService {
         }
         List<String> selectOptions = List.of("SELECT");
         List<String> insertOptions = Arrays.asList("INSERT", "ALTER", "UPDATE");
-        List<String> removeOptions = Arrays.asList("DELETE, DROP");
+        List<String> removeOptions = Arrays.asList("DELETE","DROP");
         for (String operation : operations) {
             QueryExecutor queryClass = null;
             if (selectOptions.contains(operation)){
-                queryClass = new SelectQueries(this.getConnection(), this.getStatement(), this.getUtils());
+                queryClass = new SelectQueries(this.getConnection(), this.getUtils());
             }
             else if (insertOptions.contains(operation)){
-                queryClass = new ModifyQueries(this.getConnection(), this.getStatement(), this.getUtils());
+                queryClass = new ModifyQueries(this.getConnection(), this.getUtils());
             }
             else if (removeOptions.contains(operation)){
-                queryClass = new RemovalQueries(this.getConnection(), this.getStatement(), this.getUtils());
+                queryClass = new RemovalQueries(this.getConnection(), this.getUtils());
             }
             assert queryClass != null;
             queryClass.runQuery(operation, modelName, modelObject);
