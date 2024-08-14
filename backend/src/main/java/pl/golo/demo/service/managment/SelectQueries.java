@@ -1,57 +1,72 @@
 package pl.golo.demo.service.managment;
 
-import pl.golo.demo.model.exercises.Exercise;
+import lombok.Getter;
+import lombok.Setter;
+import pl.golo.demo.model.exercises.*;
+import pl.golo.demo.model.user.Apprentice;
+import pl.golo.demo.model.user.ApprenticeLanguage;
+import pl.golo.demo.model.user.Language;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
-public class SelectQueries {
+@Getter
+@Setter
+public class SelectQueries implements QueryExecutor {
 
+    //    private Statement statement;
+    private PreparedStatement statement;
     private Connection connection;
-    private Statement statement;
-    private static List<String> selectQueries;
-    static {
-        selectQueries =  Arrays.asList(
-                "SELECT * FROM apprentice",
-                "SELECT * FROM language",
-                "SELECT * FROM apprentice_language",
-                "SELECT * FROM question",
-                "SELECT * FROM exercise  WHERE title LIKE '%Quiz%';",
-                "SELECT * FROM exercise  WHERE title LIKE '%Flashcard%';",
-                "SELECT * FROM exercise  WHERE title LIKE '%Test%';");
-    }
-    public SelectQueries() {
-    }
+    private QueriesUtils utils;
 
-    public SelectQueries(Connection connection, Statement statement) {
+    public SelectQueries(Connection connection, PreparedStatement statement, QueriesUtils utils) {
         this.connection = connection;
         this.statement = statement;
-    }
-    public String getQueryByModelName(String modelName){
-        return selectQueries.stream().filter(
-                element -> element.toLowerCase().contains(modelName)
-        ).findFirst().orElseThrow();
+        this.utils = utils;
     }
 
-    public void fetchQuery(String query, Object queryModel) throws SQLException {
-        if (this.connection != null) {
-            try (var recordResult = this.statement.executeQuery(query)) {
-                while (recordResult.next()) {
-                    QueriesUtils utils = new QueriesUtils();
-                    var objectFields = utils.getQueryObjectFields(query, queryModel);
-                    this.formFetchOutput(objectFields, recordResult);
+    @Override
+    public void runQuery(String operation, String modelName, Object modelObject) {
+        List<String> selectQueryComposition = new ArrayList<>();
+        if (modelName.contains("exercise")) {
+            selectQueryComposition.add("SELECT * FROM exercise WHERE title LIKE ? ;");
+            List<Exercise> modelObjects = (List<Exercise>) modelObject;
+            for (Exercise childObject : modelObjects) {
+                if (selectQueryComposition.size() > 1) selectQueryComposition.remove(1);
+                if (childObject instanceof Quiz) {
+                    selectQueryComposition.add("%Quiz%");
+                } else if (childObject instanceof Flashcard) {
+                    selectQueryComposition.add("%Flashcard%");
+                } else {
+                    selectQueryComposition.add("%Test%");
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                this.fetchQuery(selectQueryComposition, childObject);
             }
         } else {
-            System.out.println("Connection failed. Cannot execute query");
+            selectQueryComposition = Arrays.asList(
+                    "SELECT * FROM ? ;", modelName
+            );
+            this.fetchQuery(selectQueryComposition, modelObject);
         }
     }
+
+
+    public void fetchQuery(List<String> queryComponents, Object modelObject) {
+        try (PreparedStatement statement = this.getConnection().prepareStatement(queryComponents.get(0))) {
+            this.setStatement(statement);
+            this.getStatement().setString(1, queryComponents.get(1));
+            try (ResultSet resultSet = this.getStatement().executeQuery()) {
+                while (resultSet.next()) {
+                    var objectFields = this.getUtils().getQueryObjectFields(modelObject);
+                    this.formFetchOutput(objectFields, resultSet);
+                }
+            }
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
 
     public void formFetchOutput(LinkedHashMap<String, String> objectFields, ResultSet resultSet) throws Exception {
         StringBuilder outputForm = new StringBuilder();

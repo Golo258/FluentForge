@@ -7,6 +7,7 @@ import pl.golo.demo.model.exercises.Question;
 import pl.golo.demo.model.exercises.Flashcard;
 import pl.golo.demo.model.exercises.KnowledgeTest;
 import pl.golo.demo.model.exercises.Quiz;
+import pl.golo.demo.service.managment.QueriesUtils;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -14,38 +15,43 @@ import java.util.*;
 public class DatabaseRunner {
 
     private PostgresService service;
-    private  List<String> testQueries;
     private static LinkedHashMap<String, Object> models;
     private static ArrayList<String> queryOperation;
 
     static {
 
         models = new LinkedHashMap<>() {{
-            put("apprentice", new Apprentice());
-            put("language", new Language());
-            put("apprentice_language", new ApprenticeLanguage());
-            put("question", new Question());
-            put("quiz", new Quiz());
-            put("flashcard", new Flashcard());
-            put("knowledge_test", new KnowledgeTest());
+//            put("apprentice", new Apprentice());
+//            put("language", new Language());
+//            put("apprentice_language", new ApprenticeLanguage());
+//            put("question", new Question());
+            put("exercise", Arrays.asList(
+                    new Quiz(),
+                    new Flashcard(),
+                    new KnowledgeTest()
+            ));
         }};
         queryOperation = new ArrayList<>(
-                Arrays.asList("INSERT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
+                List.of("SELECT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
         );
     }
 
-    public void runPostgres() throws SQLException {
-        this.setService(new PostgresService());
-        this.getService().connect();
-        for (Map.Entry<String, Object> modelsEntry : models.entrySet()) {
-            System.out.println(modelsEntry.getKey());
-            this.service.executeSqlQuery(
-                    modelsEntry.getKey(), queryOperation, modelsEntry.getValue()
-            );
-            System.out.println("\n");
-        }
+    public void runPostgres(){
+        try{
+            this.setService(new PostgresService(true, new QueriesUtils()));
+            this.getService().connect();
+            for (Map.Entry<String, Object> modelsEntry : models.entrySet()) {
+                this.service.executeSqlQuery(
+                        modelsEntry.getKey(), queryOperation, modelsEntry.getValue()
+                );
+                System.out.println("\n");
+            }
 
-        this.getService().disconnect();
+            this.getService().disconnect();
+        }
+        catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
 
@@ -57,11 +63,5 @@ public class DatabaseRunner {
         this.service = service;
     }
 
-    public List<String> getTestQueries() {
-        return testQueries;
-    }
 
-    public void setTestQueries(List<String> testQueries) {
-        this.testQueries = testQueries;
-    }
 }
