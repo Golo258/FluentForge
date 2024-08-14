@@ -21,16 +21,18 @@ public class DatabaseRunner {
     static {
 
         models = new LinkedHashMap<>() {{
-            put("apprentice", new Apprentice());
-            put("language", new Language());
-            put("apprentice_language", new ApprenticeLanguage());
-            put("question", new Question());
-            put("quiz", new Quiz());
-            put("flashcard", new Flashcard());
-            put("knowledge_test", new KnowledgeTest());
+//            put("apprentice", new Apprentice());
+//            put("language", new Language());
+//            put("apprentice_language", new ApprenticeLanguage());
+//            put("question", new Question());
+            put("exercise", Arrays.asList(
+                    new Quiz(),
+                    new Flashcard(),
+                    new KnowledgeTest()
+            ));
         }};
         queryOperation = new ArrayList<>(
-                List.of("INSERT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
+                List.of("SELECT") //  "INSERT", "UPDATE", "DELETE", "DROP", "ALTER"
         );
     }
 

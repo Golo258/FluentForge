@@ -36,7 +36,7 @@ public class PostgresService {
 
 
     private Connection connection;
-    private Statement statement;
+    private PreparedStatement  statement;
     private QueriesUtils utils;
     private boolean isTestMode;
 
@@ -52,13 +52,6 @@ public class PostgresService {
                 this.setConnection(
                         DriverManager.getConnection(this.getUrl(), this.getUser(), this.getPassword())
                 );
-                if (this.getConnection() != null) {
-                    this.setStatement(
-                            this.getConnection().createStatement()
-                    );
-                } else {
-                    throw new MalformedURLException("Wrong database credentials");
-                }
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
