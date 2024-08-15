@@ -5,15 +5,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
 import pl.golo.demo.model.creation.JsonDataInsertion;
-import pl.golo.demo.service.PostgresService;
+import pl.golo.demo.service.ForgeService;
 
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 
 @Getter
@@ -60,7 +57,7 @@ public class ModifyQueries implements QueryExecutor {
 
     public ArrayList<Object> getInsertionModelsFromJsonFile(String filePath, String modelName) {
         try {
-            InputStream inputStream = PostgresService.class.getClassLoader().getResourceAsStream(
+            InputStream inputStream = ForgeService.class.getClassLoader().getResourceAsStream(
                     filePath
             );
             assert inputStream != null;
