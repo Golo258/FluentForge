@@ -16,12 +16,10 @@ public class Flashcard extends Exercise{
     public Flashcard() {
 
     }
-    @Override
     public String getUserResponses() {
         return null;
     }
 
-    @Override
     public void loadAllResponses() {
 
     }

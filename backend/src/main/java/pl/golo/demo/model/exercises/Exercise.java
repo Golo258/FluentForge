@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-public abstract class Exercise {
+public class Exercise {
     private Long exerciseId;
     private String title;
     private Long apprenticeId; // foreign key one-to-many(one-user many exercises
@@ -35,13 +35,10 @@ public abstract class Exercise {
         this.pagination = pagination;
     }
 
-    public abstract String getUserResponses();
-
-    public abstract void loadAllResponses();
 
     @Override
     public String toString() {
         QueriesUtils utils = new QueriesUtils();
-        return  utils.receiveQueryString(  this);
+        return utils.receiveQueryString(this);
     }
 }

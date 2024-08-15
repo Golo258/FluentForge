@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.golo.demo.model.exercises.Exercise;
+import pl.golo.demo.model.exercises.Question;
 import pl.golo.demo.model.user.Apprentice;
 import pl.golo.demo.model.user.Language;
 import pl.golo.demo.repository.ForgeRepository;
@@ -43,23 +45,23 @@ public class ForgeController {
 //    Questions
 
     @GetMapping("/question/all")
-    public List<Apprentice> getAllQuestions() {
-        return null;
+    public List<Question> getAllQuestions() {
+        return repository.getAllQuestions();
     }
 
     @GetMapping("/question/{id}")
-    public Apprentice getQuestionById(@PathVariable Long id) {
-        return null;
+    public Question getQuestionById(@PathVariable Long id) {
+        return repository.getQuestionById(id);
     }
 //    Exercises
 
-    @GetMapping("/exercise/all")
-    public List<Apprentice> getAllExercises() {
-        return null;
+    @GetMapping("/exercise/all/{type}")
+    public List<Exercise> getAllExercises(@PathVariable String type) {
+        return repository.getAllExercises(type);
     }
 
     @GetMapping("/exercise/{id}")
-    public Apprentice getExerciseById(@PathVariable Long id) {
-        return null;
+    public Exercise getExerciseById(@PathVariable Long id, @PathVariable String type) {
+        return repository.getExerciseById(id, type);
     }
 }

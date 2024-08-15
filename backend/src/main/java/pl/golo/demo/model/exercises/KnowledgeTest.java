@@ -24,12 +24,10 @@ public class KnowledgeTest extends Exercise{
         super(exerciseId, title, apprenticeId, pagination);
     }
 
-    @Override
     public String getUserResponses() {
         return null;
     }
 
-    @Override
     public void loadAllResponses() {
 
     }

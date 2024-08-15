@@ -36,10 +36,7 @@ public class SelectQueries implements QueryExecutor {
             assert resultSet != null;
             while (resultSet.next()) {
                 List<Object> fieldsValue = this.getModelFieldsValue(resultSet, objectFields); // shoow
-                objectsAsJsons.add(this.collectFetchOutput(
-                                fieldsValue, modelObject
-                        )
-                );
+                objectsAsJsons.add(this.collectFetchOutput(fieldsValue, modelObject));
             }
             return objectsAsJsons;
         } catch (Exception exception) {
@@ -70,8 +67,6 @@ public class SelectQueries implements QueryExecutor {
             } else if (modelObject instanceof Exercise) {
                 forgeModelObject = this.mapToObject(Exercise.class, fieldsValues);
             }
-            ObjectMapper mapper = new ObjectMapper();
-//            return mapper.writeValueAsString(forgeModelObject);
             return forgeModelObject;
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
@@ -84,7 +79,12 @@ public class SelectQueries implements QueryExecutor {
         Field[] fields = objectClass.getDeclaredFields();
         for (int index = 0; index < fields.length; index++) {
             fields[index].setAccessible(true);
-            fields[index].set(object, modelFields.get(index));
+            Object fieldValue = modelFields.get(index);
+            if (fieldValue instanceof Array) {
+                Array sqlArray = (Array) fieldValue;
+                fieldValue = sqlArray.getArray();
+            }
+            fields[index].set(object, fieldValue);
         }
         return object;
     }
@@ -111,17 +111,12 @@ public class SelectQueries implements QueryExecutor {
         List<String> selectQueryComposition = new ArrayList<>();
         if (modelName.contains("exercise")) {
             selectQueryComposition.add("SELECT * FROM exercise WHERE title LIKE ? ;");
-            List<Exercise> modelObjects = (List<Exercise>) modelObject;
-            for (Exercise childObject : modelObjects) {
-                selectQueryComposition.removeIf(element -> (element.contains("%"))); // Previous element removal
-                if (childObject instanceof Quiz) {
-                    selectQueryComposition.add("%Quiz%");
-                } else if (childObject instanceof Flashcard) {
-                    selectQueryComposition.add("%Flashcard%");
-                } else {
-                    selectQueryComposition.add("%Test%");
-                }
-                return selectQueryComposition;
+            if (modelObject instanceof Quiz) {
+                selectQueryComposition.add("%Quiz%");
+            } else if (modelObject instanceof Flashcard) {
+                selectQueryComposition.add("%Flashcard%");
+            } else {
+                selectQueryComposition.add("%Test%");
             }
         } else {
             selectQueryComposition = List.of(

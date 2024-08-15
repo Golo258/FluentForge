@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
+import pl.golo.demo.model.exercises.*;
 import pl.golo.demo.model.user.Apprentice;
 import pl.golo.demo.model.user.Language;
 import pl.golo.demo.service.ForgeService;
@@ -39,18 +40,12 @@ public class ForgeRepository {
     public Apprentice getUserById(@PathVariable Long id) {
         List<Apprentice> results = this.getAllUsers();
         for (Apprentice object : results) {
-            try {
-                if (object.getApprenticeId().equals(id)) {
-                    return object;
-                }
-                return null;
-            } catch (Exception exception) {
-                System.out.println(exception.getCause());
+            if (object.getApprenticeId().equals(id)) {
+                return object;
             }
         }
         return null;
     }
-//    Language
 
     public List<Language> getAllLanguages() {
         List<Object> records = this.service.runSelectQuery("language", new Language(), "all");
@@ -65,33 +60,62 @@ public class ForgeRepository {
     public Language getLanguageById(@PathVariable Long id) {
         List<Language> results = this.getAllLanguages();
         for (Language object : results) {
-            try {
-                if (object.getLanguageId().equals(id)) {
-                    return object;
-                }
-                return null;
-            } catch (Exception exception) {
-                System.out.println(exception.getCause());
+            if (object.getLanguageId().equals(id)) {
+                return object;
             }
         }
         return null;
     }
 //    Questions
 
-    public List<Apprentice> getAllQuestions() {
-        return null;
+    public List<Question> getAllQuestions() {
+        List<Object> records = this.service.runSelectQuery("question", new Question(), "all");
+        List<Question> questions = this.castObjectListToIstances(records);
+        if (questions.isEmpty()) {
+            return List.of(new Question());
+        } else {
+            return questions;
+        }
     }
 
-    public Apprentice getQuestionById(@PathVariable Long id) {
+    public Question getQuestionById(@PathVariable Long id) {
+        List<Question> results = this.getAllQuestions();
+        for (Question object : results) {
+            if (object.getQuestionId().equals(id)) {
+                return object;
+            }
+        }
         return null;
     }
 //    Exercises
 
-    public List<Apprentice> getAllExercises() {
-        return null;
+    public List<Exercise> getAllExercises(String type) {
+        List<Object> records = null;
+        if (type.contains("Quiz")){
+            records = this.service.runSelectQuery("exercise", new Quiz(), "all");
+        }
+        else if (type.contains("Flashcard")){
+            records = this.service.runSelectQuery("exercise", new Flashcard(), "all");
+        }
+        else if (type.contains("Test")){
+            records = this.service.runSelectQuery("exercise", new KnowledgeTest(), "all");
+        }
+        assert records != null;
+        List<Exercise> exercises = this.castObjectListToIstances(records);
+        if (exercises.isEmpty()) {
+            return List.of(new Quiz());
+        } else {
+            return exercises;
+        }
     }
 
-    public Apprentice getExerciseById(@PathVariable Long id) {
+    public Exercise getExerciseById(@PathVariable Long id, @PathVariable String type) {
+        List<Exercise> results = this.getAllExercises(type);
+        for (Exercise object : results) {
+            if (object.getExerciseId().equals(id)) {
+                return object;
+            }
+        }
         return null;
     }
 
