@@ -20,21 +20,20 @@ public class QueriesUtils {
     /**
      * Implementation of python function:
      * String query = utils.getFormattedString("Some kind of {thing} just {have} another one {}", dict(key:value))
-     *
      */
     public String getFormatedString(String content, Map<String, String> valuesToFormat) {
         List<String> splitContent = Arrays.asList(content.split(" "));
         for (int value_index = 0; value_index < splitContent.size(); value_index++) {
             String element = splitContent.get(value_index);
-            if(element.startsWith("{") && element.endsWith("}")){
+            if (element.startsWith("{") && element.endsWith("}")) {
                 String keyEquivalent = element.substring(1, element.length() - 1);
                 splitContent.set(value_index, valuesToFormat.get(keyEquivalent));
             }
         }
-        return String.join(" ",splitContent);
+        return String.join(" ", splitContent);
     }
 
-    public LinkedHashMap<String, String> getQueryObjectFields(Object queryModel){
+    public LinkedHashMap<String, String> getQueryObjectFields(Object queryModel) {
         Class<?> clazz = queryModel.getClass();
         Field[] fields;
         if (queryModel.getClass().getSuperclass() == Exercise.class) {
@@ -74,22 +73,24 @@ public class QueriesUtils {
         return "( " + fieldsNames + " )";
     }
 
-    public String receiveQueryString() {
-        Field[] fields = this.getClass().getDeclaredFields();
+    public String receiveQueryString(Object classObject) {
+        Field[] fields = classObject.getClass().getDeclaredFields();
 
-        List<String> fieldValues = Arrays.stream(fields).map(field -> {
-            try {
-                Object fieldValue = field.get(this);
-                if (fieldValue instanceof Number) {
-                    return fieldValue.toString();
-                } else {
-                    return "'" + fieldValue.toString() + "'"; //
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return "null";
-            }
-        }).toList();
+        List<String> fieldValues = Arrays.stream(fields)
+                .peek(field -> field.setAccessible(true))
+                .map(field -> {
+                    try {
+                        Object fieldValue = field.get(classObject);
+                        if (fieldValue instanceof Number) {
+                            return fieldValue.toString();
+                        } else {
+                            return "'" + fieldValue.toString() + "'"; //
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        return "null";
+                    }
+                }).toList();
         return "( " + String.join(", ", fieldValues) + " )";
     }
 }

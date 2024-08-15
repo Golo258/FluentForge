@@ -5,48 +5,47 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.Setter;
 import pl.golo.demo.model.creation.JsonDataInsertion;
-import pl.golo.demo.service.PostgresService;
+import pl.golo.demo.service.ForgeService;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 
 @Getter
 @Setter
 public class ModifyQueries implements QueryExecutor {
     private Connection connection;
-    private Statement statement;
+    private PreparedStatement statement;
     private QueriesUtils utils;
 
 
-    public ModifyQueries(Connection connection, Statement statement, QueriesUtils utils) {
+    public ModifyQueries(Connection connection, QueriesUtils utils) {
         this.connection = connection;
-        this.statement = statement;
         this.utils = utils;
     }
 
     @Override
     public void runQuery(String operation, String modelName, Object modelObject) {
-        try {
-            if (operation.contains("INSERT")) {
-                String insertquery = this.getFormatForInsertionQuery(operation, modelObject, modelName);
-                this.getStatement().executeUpdate(insertquery);
-            } else {
-                System.out.println("NOT IMPLEMENTED YET");
+        if (operation.contains("INSERT")) {
+            String insertquery = this.getFormatForInsertionQuery(operation, modelObject, modelName);
+            try(PreparedStatement preparedStatement = this.getConnection().prepareStatement(insertquery)){
+                this.setStatement(preparedStatement);
+                this.getStatement().executeUpdate();
             }
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
+            catch (Exception exception){
+                System.out.println(exception.getMessage());
+            }
+        } else {
+            System.out.println("NOT IMPLEMENTED YET");
         }
+
     }
 
     public String getFormatForInsertionQuery(String givenQuery, Object modelObject, String modelName) {
         String objectFieldsNames = utils.getModelFields(modelObject);
-        givenQuery = givenQuery + " INTO " + modelName + objectFieldsNames + " VALUES";
+        givenQuery = givenQuery + " INTO " + modelName + objectFieldsNames + " VALUES ";
         ArrayList<Object> modelsList = getInsertionModelsFromJsonFile("Static/dummy_data.json", modelName);
         String separator;
         for (int modelIndex = 0; modelIndex < modelsList.size(); modelIndex++) {
@@ -58,7 +57,7 @@ public class ModifyQueries implements QueryExecutor {
 
     public ArrayList<Object> getInsertionModelsFromJsonFile(String filePath, String modelName) {
         try {
-            InputStream inputStream = PostgresService.class.getClassLoader().getResourceAsStream(
+            InputStream inputStream = ForgeService.class.getClassLoader().getResourceAsStream(
                     filePath
             );
             assert inputStream != null;

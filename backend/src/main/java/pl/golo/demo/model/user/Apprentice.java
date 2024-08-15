@@ -45,7 +45,6 @@ public class Apprentice {
     @Override
     public String toString() {
         QueriesUtils utils = new QueriesUtils();
-        return utils.receiveQueryString();
+        return  utils.receiveQueryString(  this);
     }
-
 }

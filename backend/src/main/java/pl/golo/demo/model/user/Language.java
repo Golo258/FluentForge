@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.golo.demo.service.managment.QueriesUtils;
 
+import java.awt.font.NumericShaper;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Representation of possible to chose languages by apprentice
@@ -37,6 +39,6 @@ public class Language {
     @Override
     public String toString() {
         QueriesUtils utils = new QueriesUtils();
-        return utils.receiveQueryString();
+        return  utils.receiveQueryString(  this);
     }
 }

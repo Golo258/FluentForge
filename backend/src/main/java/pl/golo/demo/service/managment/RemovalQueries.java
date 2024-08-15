@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Collections;
 import java.util.Collections.*;
@@ -15,13 +16,12 @@ import java.util.Map;
 @Setter
 public class RemovalQueries implements QueryExecutor{
     private Connection connection;
-    private Statement statement;
+    private PreparedStatement statement;
     private QueriesUtils utils;
 
 
-    public RemovalQueries(Connection connection, Statement statement, QueriesUtils utils) {
+    public RemovalQueries(Connection connection, QueriesUtils utils) {
         this.connection = connection;
-        this.statement = statement;
         this.utils = utils;
     }
 
