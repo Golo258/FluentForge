@@ -1,0 +1,77 @@
+
+
+Tydzień 1: Podstawy Reacta
+	1.	Wprowadzenie do Reacta:
+		o	Przeczytaj podstawy Reacta na oficjalnej stronie Reacta.
+		o	Zrozumienie podstawowych pojęć: komponenty, props, state.
+	2.	Tworzenie prostych komponentów:
+		o	Utwórz prosty komponent funkcjonalny.
+		o	Eksportowanie i importowanie komponentów.
+		o	Praktyka: Zmień kod w App.js, aby dodać kilka prostych komponentów.
+	3.	Korzystanie z JSX:
+		o	Zrozumienie składni JSX.
+		o	Praktyka: Stwórz komponenty z różnymi elementami HTML i stylami w JSX.
+	4.	Przekazywanie props:
+		o	Naucz się, jak przekazywać dane do komponentów.
+		o	Praktyka: Zaktualizuj swój projekt, aby komponenty przyjmowały props i wyświetlały dynamiczne dane.
+
+
+Tydzień 2: Praca ze stanem (State) i zdarzeniami (Events)
+	1.	Zrozumienie state:
+		o	Naucz się, jak używać useState do zarządzania stanem komponentów.
+		o	Praktyka: Dodaj do swojego projektu komponenty, które zarządzają stanem (np. licznik).
+	2.	Obsługa zdarzeń:
+		o	Naucz się, jak obsługiwać zdarzenia, takie jak kliknięcia przycisków.
+		o	Praktyka: Dodaj interaktywne elementy do swojego projektu, np. przyciski, które zmieniają stan komponentu.
+	3.	Warunkowe renderowanie:
+		o	Naucz się, jak renderować różne elementy w zależności od stanu.
+		o	Praktyka: Wykorzystaj warunkowe renderowanie do dynamicznego wyświetlania treści.
+
+Tydzień 3: Komponenty i ich organizacja
+	1.	Tworzenie komponentów klasowych:
+		o	Poznaj komponenty klasowe, chociaż komponenty funkcjonalne są bardziej zalecane w nowoczesnym React.
+		o	Praktyka: Utwórz prosty komponent klasowy w swoim projekcie.
+	2.	Lifting State Up:
+		o	Naucz się, jak przekazywać stan między komponentami.
+		o	Praktyka: Przenieś stan do komponentu rodzica, aby przekazywać go do komponentów dzieci.
+	3.	Komponenty zagnieżdżone:
+		o	Naucz się, jak tworzyć i używać zagnieżdżonych komponentów.
+	o	Praktyka: Zorganizuj swój projekt, używając zagnieżdżonych komponentów.
+
+Tydzień 4: Zaawansowane techniki Reacta
+	1.	Korzystanie z useEffect:
+		o	Zrozumienie, jak działa hook useEffect do zarządzania efektami ubocznymi.
+		o	Praktyka: Dodaj efekty uboczne, takie jak pobieranie danych z API, do swojego projektu.
+	2.	Context API:
+		o	Naucz się korzystać z Context API do zarządzania globalnym stanem.
+		o	Praktyka: Zastosuj Context API w swoim projekcie, aby zarządzać stanem globalnym.
+	3.	Routing z React Router:
+		o	Naucz się używać React Router do nawigacji między stronami.
+		o	Praktyka: Dodaj nawigację do swojego projektu, tworząc kilka stron i przechodząc między nimi.
+Tydzień 5: Testowanie i optymalizacja
+	1.	Podstawy testowania:
+		o	Naucz się podstaw testowania komponentów Reacta (np. za pomocą Jest i React Testing Library).
+		o	Praktyka: Napisz testy dla kilku komponentów w swoim projekcie.
+	2.	Optymalizacja:
+		o	Naucz się o technikach optymalizacji, takich jak memoizacja, lazy loading.
+		o	Praktyka: Zoptymalizuj swój projekt, aby poprawić wydajność.
+	3.	Refaktoryzacja kodu:
+		o	Przejrzyj swój kod i zidentyfikuj obszary do poprawy lub refaktoryzacji.
+		o	Praktyka: Uporządkuj swój projekt, poprawiając organizację kodu i usuwając niepotrzebne fragmenty.
+Narzędzia i materiały do nauki:
+	1.	Dokumentacja Reacta: React Docs
+	2.	Kursy i tutoriale:
+		o	freeCodeCamp
+		o	Codecademy React
+		o	Egghead.io
+	3.	Przykłady projektów: Praktyka na rzeczywistych projektach pomoże w nauce.
+	4.	Forum i społeczności: Stack Overflow, Reddit r/reactjs, Discordy deweloperskie.
+		Podsumowanie:
+		•	Tydzień 1: Nauka podstaw Reacta, tworzenie prostych komponentów.
+		•	Tydzień 2: Praca ze stanem i zdarzeniami, warunkowe renderowanie.
+		•	Tydzień 3: Organizacja komponentów, przekazywanie stanu między komponentami.
+		•	Tydzień 4: Zaawansowane techniki, Context API, React Router.
+		•	Tydzień 5: Testowanie, optymalizacja, refaktoryzacja kodu.
+		Pamiętaj, że kluczem do sukcesu jest praktyka i cierpliwość. Kontynuuj rozwijanie swojego projektu równocześnie ucząc się nowych rzeczy, a z czasem frontend stanie się dla Ciebie przyjemnością i satysfakcjonującym wyzwaniem!
+		4o mini
+
